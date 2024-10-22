@@ -50,6 +50,13 @@ def main():
                 spiral(prog),
                 radius=1,
             )
+            # drawing another spiral
+            pygame.draw.circle(
+                screen,
+                colour,
+                spiral(prog, end="left"),
+                radius=1,
+            )
 
         # counting frames
         frame += 1
@@ -80,11 +87,17 @@ def circle(progress):
         height//2 + height//2 * sin(2 * pi * progress)
     )
 
-def spiral(progress):
-    return (
-        width//2 + progress * width//2 * cos(2 * pi * progress),
-        height//2 + progress * height//2 * sin(2 * pi * progress)
-    )
+def spiral(progress, end="right"):
+    if end == "right":
+        return (
+            width//2 + progress * width//2 * cos(2 * pi * progress),
+            height//2 + progress * height//2 * sin(2 * pi * progress)
+        )
+    elif end == "left":
+        return (
+            width//2 - progress * width//2 * cos(2 * pi * progress),
+            height//2 - progress * height//2 * sin(2 * pi * progress)
+        )
 
 if __name__ == "__main__":
     main()
