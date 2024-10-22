@@ -26,7 +26,7 @@ def main():
 
     # setting loop 
     frame = 0
-    colour = white
+    colour = "b"
     while frame <= frames:
         # ticking clock
         clock.tick(fps)
@@ -39,22 +39,22 @@ def main():
             # drawing a circle
             pygame.draw.circle(
                 screen,
-                colour,
+                dyn_colour(colour),
                 circle(prog),
                 radius=1,
             )
             # drawing a spiral
             pygame.draw.circle(
                 screen,
-                colour,
+                dyn_colour(colour),
                 spiral(prog),
                 radius=1,
             )
             # drawing another spiral
             pygame.draw.circle(
                 screen,
-                colour,
-                spiral(prog, end="left"),
+                dyn_colour(colour),
+                spiral(prog, reversed=True),
                 radius=1,
             )
 
@@ -67,10 +67,10 @@ def main():
         
         # changing colour periodically
         if frame == frames:
-            if colour == white:
-                colour = black
-            elif colour == black:
-                colour = white
+            if colour == "a":
+                colour = "b"
+            elif colour == "b":
+                colour = "a"
 
         # updating animation by flipping the screen
         pygame.display.flip()
@@ -87,17 +87,24 @@ def circle(progress):
         height//2 + height//2 * sin(2 * pi * progress)
     )
 
-def spiral(progress, end="right"):
-    if end == "right":
+def spiral(progress, reversed=False):
+    if not reversed:
         return (
             width//2 + progress * width//2 * cos(2 * pi * progress),
             height//2 + progress * height//2 * sin(2 * pi * progress)
         )
-    elif end == "left":
+    else:
         return (
             width//2 - progress * width//2 * cos(2 * pi * progress),
             height//2 - progress * height//2 * sin(2 * pi * progress)
         )
+
+def dyn_colour(colour_var):
+    match colour_var:
+        case "a":
+            return (0, 0, 0)
+        case "b":
+            return (255, 255, 255)
 
 if __name__ == "__main__":
     main()
