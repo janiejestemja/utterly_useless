@@ -59,7 +59,7 @@ def main():
             frame = 0
         
         # changing colour periodically
-        if frame == 0:
+        if frame == frames:
             if colour == white:
                 colour = black
             elif colour == black:
@@ -85,7 +85,6 @@ def spiral(progress):
         width//2 + progress * width//2 * cos(2 * pi * progress),
         height//2 + progress * height//2 * sin(2 * pi * progress)
     )
-    
 
 if __name__ == "__main__":
     main()
