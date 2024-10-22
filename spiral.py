@@ -34,11 +34,20 @@ def main():
 
         # doing animation
         for i in range(precision):
+            # parameterisation of current frame
             prog = frame / frames + i / precision / frames
+            # drawing a circle
             pygame.draw.circle(
                 screen,
                 colour,
                 circle(prog),
+                radius=1,
+            )
+            # drawing a spiral
+            pygame.draw.circle(
+                screen,
+                colour,
+                spiral(prog),
                 radius=1,
             )
 
@@ -70,6 +79,13 @@ def circle(progress):
         width//2 + width//2 * cos(2 * pi * progress),
         height//2 + height//2 * sin(2 * pi * progress)
     )
+
+def spiral(progress):
+    return (
+        width//2 + progress * width//2 * cos(2 * pi * progress),
+        height//2 + progress * height//2 * sin(2 * pi * progress)
+    )
+    
 
 if __name__ == "__main__":
     main()
