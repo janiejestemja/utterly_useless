@@ -39,21 +39,28 @@ def main():
             # drawing a circle
             pygame.draw.circle(
                 screen,
-                dyn_colour(colour),
+                dyn_colour(0, colour),
                 circle(prog),
+                radius=1,
+            )
+            # drawing another circle
+            pygame.draw.circle(
+                screen,
+                dyn_colour(0, colour),
+                circle(prog, reversed=True),
                 radius=1,
             )
             # drawing a spiral
             pygame.draw.circle(
                 screen,
-                dyn_colour(colour),
+                dyn_colour(frame, colour),
                 spiral(prog),
                 radius=1,
             )
             # drawing another spiral
             pygame.draw.circle(
                 screen,
-                dyn_colour(colour),
+                dyn_colour(frame, colour),
                 spiral(prog, reversed=True),
                 radius=1,
             )
@@ -81,11 +88,18 @@ def main():
                 pygame.quit()
                 sys.exit()
 
-def circle(progress):
-    return (
-        width//2 + width//2 * cos(2 * pi * progress),
-        height//2 + height//2 * sin(2 * pi * progress)
-    )
+def circle(progress, reversed=False):
+    if not reversed:
+        return (
+            width//2 + width//2 * cos(2 * pi * progress),
+            height//2 + height//2 * sin(2 * pi * progress)
+        )
+    else:
+        return (
+            width//2 - width//2 * cos(2 * pi * progress),
+            height//2 - height//2 * sin(2 * pi * progress)
+        )
+
 
 def spiral(progress, reversed=False):
     if not reversed:
@@ -99,12 +113,12 @@ def spiral(progress, reversed=False):
             height//2 - progress * height//2 * sin(2 * pi * progress)
         )
 
-def dyn_colour(colour_var):
+def dyn_colour(frame, colour_var):
     match colour_var:
         case "a":
-            return (0, 0, 0)
+            return (0 + frame, 0 + frame, 0 + frame)
         case "b":
-            return (255, 255, 255)
+            return ( 180 - frame, 180 - frame, 180 - frame)
 
 if __name__ == "__main__":
     main()
