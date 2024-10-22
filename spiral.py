@@ -26,16 +26,18 @@ def main():
 
     # setting loop 
     frame = 0
+    colour = white
     while frame <= frames:
         # ticking clock
         clock.tick(fps)
+
 
         # doing animation
         for i in range(precision):
             prog = frame / frames + i / precision / frames
             pygame.draw.circle(
                 screen,
-                white,
+                colour,
                 circle(prog),
                 radius=1,
             )
@@ -46,7 +48,13 @@ def main():
         # looping the animation by resetting frames to zero
         if frame > frames:
             frame = 0
-            screen.fill(black)
+        
+        # changing colour periodically
+        if frame == 0:
+            if colour == white:
+                colour = black
+            elif colour == black:
+                colour = white
 
         # updating animation by flipping the screen
         pygame.display.flip()
