@@ -109,6 +109,39 @@ def main():
                 radius=1,
             )
 
+            # experimental spirals 
+
+            # drawing a blue spiral
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_ef),
+                spiral((1 -1 * prog)),
+                radius=1,
+            )
+            # drawing another blue spiral
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_ef),
+                spiral((1 -1 * prog), reversed=True),
+                radius=1,
+            )
+
+            # drawing a green spiral 
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_gh),
+                spiral(1 -1 * prog, offset=True),
+                radius=1,
+            )
+
+            # drawing another green spiral
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_gh),
+                spiral(1 -1 * prog, reversed=True, offset=True),
+                radius=1,
+            )
+
 
         # counting frames
         frame += 1
@@ -131,7 +164,7 @@ def main():
                 case "d":
                     colour_cd = "c"
         
-        if frame == frames // 2:            
+        if frame == frames // 2: 
             match colour_ef:
                 case "e":
                     colour_ef = "f"
