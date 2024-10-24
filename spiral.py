@@ -65,6 +65,20 @@ def main():
                 spiral(prog, reversed=True),
                 radius=1,
             )
+            # drawing a couple more spirals...
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour),
+                spiral(-1 * prog),
+                radius=1,
+            )
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour),
+                spiral(-1 * prog, reversed=True),
+                radius=1,
+            )
+
 
         # counting frames
         frame += 1
