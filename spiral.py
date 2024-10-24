@@ -233,13 +233,13 @@ def dyn_colour(frame, colour_var):
         case "c":
             return (0, 0, 0)
         case "d":
-            return (180 - frame, 180 - frame, 180 - frame)
+            return (frame, frame, frame)
         case "f":
             return (0, 0, 0)
         case "e":
-            return (0, 180 - frame, 180 - frame)
+            return (0, frame, frame)
         case "h":
-            return (0, 180 - frame, 0)
+            return (0, frame, 0)
         case "g":
             return (0, 0, 0)
 
