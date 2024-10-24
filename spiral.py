@@ -29,6 +29,7 @@ def main():
     colour = "b"
     colour_cd = "d"
     colour_ef = "f"
+    colour_gh = "h"
     while frame <= frames:
         # ticking clock
         clock.tick(fps)
@@ -52,20 +53,36 @@ def main():
                 circle(prog, reversed=True),
                 radius=1,
             )
-            # drawing a spiral
+            # drawing a blue spiral
             pygame.draw.circle(
                 screen,
                 dyn_colour(frame, colour_ef),
                 spiral(-1 * prog),
                 radius=1,
             )
-            # drawing another spiral
+            # drawing another blue spiral
             pygame.draw.circle(
                 screen,
                 dyn_colour(frame, colour_ef),
                 spiral(-1 * prog, reversed=True),
                 radius=1,
             )
+            # drawing a green spiral 
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_gh),
+                spiral(-1 * prog, offset=True),
+                radius=1,
+            )
+
+            # drawing another green spiral
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_gh),
+                spiral(-1 * prog, reversed=True, offset=True),
+                radius=1,
+            )
+
             # drawing a couple more spirals...
             pygame.draw.circle(
                 screen,
@@ -120,6 +137,12 @@ def main():
                     colour_ef = "f"
                 case "f":
                     colour_ef = "e"
+
+            match colour_gh:
+                case "g":
+                    colour_gh = "h"
+                case "h":
+                    colour_gh = "g"
             
 
         # updating animation by flipping the screen
@@ -178,10 +201,14 @@ def dyn_colour(frame, colour_var):
             return (0, 0, 0)
         case "d":
             return (180 - frame, 180 - frame, 180 - frame)
-        case "e":
-            return (0, 0, 0)
         case "f":
+            return (0, 0, 0)
+        case "e":
             return (0, 180 - frame, 180 - frame)
+        case "h":
+            return (0, 180 - frame, 0)
+        case "g":
+            return (0, 0, 0)
 
 
 if __name__ == "__main__":
