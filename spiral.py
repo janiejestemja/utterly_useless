@@ -27,6 +27,7 @@ def main():
     # setting loop 
     frame = 0
     colour = "b"
+    colour_cd = "d"
     while frame <= frames:
         # ticking clock
         clock.tick(fps)
@@ -53,14 +54,14 @@ def main():
             # drawing a spiral
             pygame.draw.circle(
                 screen,
-                dyn_colour(frame, colour),
+                dyn_colour(frame, colour_cd),
                 spiral(prog),
                 radius=1,
             )
             # drawing another spiral
             pygame.draw.circle(
                 screen,
-                dyn_colour(frame, colour),
+                dyn_colour(frame, colour_cd),
                 spiral(prog, reversed=True),
                 radius=1,
             )
@@ -74,10 +75,19 @@ def main():
         
         # changing colour periodically
         if frame == frames:
-            if colour == "a":
-                colour = "b"
-            elif colour == "b":
-                colour = "a"
+            match colour:
+                case "a":
+                    colour = "b"
+                case "b":
+                    colour = "a"
+        
+        if frame == frames // 2:
+            match colour_cd:
+                case "c":
+                    colour_cd = "d"
+                case "d":
+                    colour_cd = "c"
+            
 
         # updating animation by flipping the screen
         pygame.display.flip()
@@ -118,7 +128,12 @@ def dyn_colour(frame, colour_var):
         case "a":
             return (0 + frame, 0 + frame, 0 + frame)
         case "b":
-            return ( 180 - frame, 180 - frame, 180 - frame)
+            return (180 - frame, 180 - frame, 180 - frame)
+        case "c":
+            return (0 , 0 , 0)
+        case "d":
+            return (0, 180 - frame, 180 - frame)
+
 
 if __name__ == "__main__":
     main()
