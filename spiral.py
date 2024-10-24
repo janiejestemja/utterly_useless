@@ -28,6 +28,7 @@ def main():
     frame = 0
     colour = "b"
     colour_cd = "d"
+    colour_ef = "f"
     while frame <= frames:
         # ticking clock
         clock.tick(fps)
@@ -54,28 +55,40 @@ def main():
             # drawing a spiral
             pygame.draw.circle(
                 screen,
-                dyn_colour(frame, colour_cd),
-                spiral(prog),
+                dyn_colour(frame, colour_ef),
+                spiral(-1 * prog),
                 radius=1,
             )
             # drawing another spiral
             pygame.draw.circle(
                 screen,
-                dyn_colour(frame, colour_cd),
-                spiral(prog, reversed=True),
+                dyn_colour(frame, colour_ef),
+                spiral(-1 * prog, reversed=True),
                 radius=1,
             )
             # drawing a couple more spirals...
             pygame.draw.circle(
                 screen,
                 dyn_colour(frame, colour),
-                spiral(-1 * prog),
+                spiral(prog),
                 radius=1,
             )
             pygame.draw.circle(
                 screen,
                 dyn_colour(frame, colour),
-                spiral(-1 * prog, reversed=True),
+                spiral(prog, reversed=True),
+                radius=1,
+            )
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_cd),
+                spiral(prog, offset=True),
+                radius=1,
+            )
+            pygame.draw.circle(
+                screen,
+                dyn_colour(frame, colour_cd),
+                spiral(prog, reversed=True, offset=True),
                 radius=1,
             )
 
@@ -94,13 +107,19 @@ def main():
                     colour = "b"
                 case "b":
                     colour = "a"
-        
-        if frame == frames // 2:
+
             match colour_cd:
                 case "c":
                     colour_cd = "d"
                 case "d":
                     colour_cd = "c"
+        
+        if frame == frames // 2:            
+            match colour_ef:
+                case "e":
+                    colour_ef = "f"
+                case "f":
+                    colour_ef = "e"
             
 
         # updating animation by flipping the screen
@@ -125,27 +144,43 @@ def circle(progress, reversed=False):
         )
 
 
-def spiral(progress, reversed=False):
-    if not reversed:
+def spiral(progress, reversed=False, offset=False):
+    if not reversed and not offset:
         return (
             width//2 + progress * width//2 * cos(2 * pi * progress),
             height//2 + progress * height//2 * sin(2 * pi * progress)
         )
-    else:
+    elif reversed and not offset:
         return (
             width//2 - progress * width//2 * cos(2 * pi * progress),
             height//2 - progress * height//2 * sin(2 * pi * progress)
         )
+    elif not reversed and offset != False:
+        return (
+            width//2 + progress * width//2 * cos(2 * pi * progress + pi // 2),
+            height//2 + progress * height//2 * sin(2 * pi * progress + pi // 2)
+        )
+    elif reversed and offset != False:
+        return (
+            width//2 - progress * width//2 * cos(2 * pi * progress + pi // 2),
+            height//2 - progress * height//2 * sin(2 * pi * progress + pi // 2)
+        )
+
+
 
 def dyn_colour(frame, colour_var):
     match colour_var:
         case "a":
-            return (0 + frame, 0 + frame, 0 + frame)
-        case "b":
             return (180 - frame, 180 - frame, 180 - frame)
+        case "b":
+            return (0, 0, 0)
         case "c":
-            return (0 , 0 , 0)
+            return (0, 0, 0)
         case "d":
+            return (180 - frame, 180 - frame, 180 - frame)
+        case "e":
+            return (0, 0, 0)
+        case "f":
             return (0, 180 - frame, 180 - frame)
 
 
